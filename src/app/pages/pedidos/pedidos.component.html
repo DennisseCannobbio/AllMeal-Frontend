@@ -1,0 +1,193 @@
+<div class="p-4 bg-white">
+  <div>
+    <h4 class="mb-3 mb-md-0">Mantenedor Pedidos</h4>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="col-md-12">
+      @if(cargando == true) {
+      <div class="row d-flex justify-content-center mt-5">
+        <div class="spinner-grow text-primary m-1" role="status">
+          <span class="sr-only">Cargando...</span>
+        </div>
+      </div>
+      } @else if(cargando == false) {
+      <div class="d-flex align-items-end justify-content-end">
+        <button
+          class="btn btn-success"
+          (click)="abrirModalPedido(null, true)"
+          [disabled]="!horarioPedido || lstMenus.length == 0"
+        >
+          Agregar Pedido
+          <i class="ml-3 fa fa-plus align-middle"></i>
+        </button>
+      </div>
+      @if(lstMenus.length == 0) {
+      <span
+        class="text-danger text-xs d-flex align-items-end justify-content-end mt-2"
+        >Debe ingresar al menos un menú para agregar un pedido.</span
+      >
+      }
+
+      <div class="table-responsive mt-3">
+        <div class="table table-bordered">
+          <table class="table">
+            <thead>
+              <th>Id</th>
+              <th>Cliente</th>
+              <th>Menú/s</th>
+              <th>Fecha</th>
+
+              <th class="text-center">Acciones</th>
+            </thead>
+            <tbody>
+              @if(lstPedidos.length == 0) {
+              <tr>
+                <td colspan="5">No existen datos para mostrar.</td>
+              </tr>
+              } @for (item of lstPedidos; track $index) {
+              <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nombre_cliente }}</td>
+                <td>Menú {{ item.menuStr }}</td>
+                <td>{{ item.fecha }}</td>
+                <td class="text-center">
+                  <a
+                    class="btn btn-sm btn-primary btn-icon"
+                    (click)="abrirModalPedido(item, false)"
+                  >
+                    <i class="fa fa-pen"></i> </a
+                  >&nbsp;
+                  <a
+                    class="btn btn-sm btn-danger btn-icon"
+                    (click)="eliminarPedido(item.id)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<ng-template #templateVistaPedido>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        {{ isNewPedido == true ? "Nuevo Pedido" : "Modificar Pedido" }}
+      </h4>
+
+      <button
+        type="button"
+        class="close cursor"
+        aria-hidden="true"
+        (click)="bsModalRef.hide()"
+      >
+        x
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label class="control-label text-right">Cliente</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="cliente"
+                  />
+                  @if(cliente == '') {
+                  <span class="text-danger text-left"
+                    >Debe ingresar un cliente.</span
+                  >
+                  } @if(cliente.length < 5 && cliente != '') {
+                  <span class="text-danger text-left"
+                    >El cliente debe tener más de 5 caracteres.</span
+                  >
+                  }
+                </div>
+              </div>
+              <div class="form-group row mt-4">
+                <div class="col-md-12">
+                  <label class="control-label text-right">Menus</label>
+                  <ng-select
+                    (change)="changeMenus()"
+                    class="form-control"
+                    [items]="lstMenus"
+                    bindLabel="str"
+                    bindValue="id"
+                    notFoundText="{{ 'Sin Datos' }}"
+                    [clearable]="false"
+                    [(ngModel)]="menus"
+                    [multiple]="true"
+                  >
+                  </ng-select>
+                </div>
+                @if(menus.length == 0) {
+                <span class="text-danger text-left"
+                  >Debe seleccionar al menos un menu.</span
+                >
+                }
+              </div>
+              <div class="form-group row mt-4">
+                <div class="col-md-12">
+                  <label class="control-label text-right">Fecha</label>
+                  <input
+                    (ngModelChange)="changeFecha($event)"
+                    type="text"
+                    [(ngModel)]="fecha"
+                    class="form-control"
+                    [minDate]="minDate"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    [bsConfig]="{
+                      showWeekNumbers: false,
+                      isAnimated: true,
+                      adaptivePosition: true
+                    }"
+                    [daysDisabled]="[6, 0]"
+                    bsDatepicker
+                  />
+                  @if(!fecha || fecha == 'Invalid Date') {
+                  <span class="text-danger text-left"
+                    >Debe seleccionar una fecha válida.</span
+                  >
+                  }
+                </div>
+              </div>
+              <div class="d-flex justify-content-center mt-4">
+                <button
+                  (click)="
+                    isNewPedido == true ? agregarPedido() : modificarPedido()
+                  "
+                  class="btn btn-success"
+                  type="submit"
+                  [disabled]="
+                    cliente.length < 5 ||
+                    cliente == '' ||
+                    menus.length == 0 ||
+                    !fecha ||
+                    fecha == 'Invalid Date'
+                  "
+                >
+                  Guardar <i class="fa fa-save align-middle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

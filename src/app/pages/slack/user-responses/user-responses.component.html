@@ -1,0 +1,50 @@
+<div class="p-4 bg-white">
+  <div>
+    <h4 class="mb-3 mb-md-0">Respuestas Slack</h4>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="col-md-12">
+      <h6>
+        En esta sección puede observar las respuestas desde Slack, de los
+        Usuarios que seleccionaron un menú.
+      </h6>
+      @if(cargando == true) {
+      <div class="row d-flex justify-content-center mt-5">
+        <div class="spinner-grow text-primary m-1" role="status">
+          <span class="sr-only">Cargando...</span>
+        </div>
+      </div>
+      } @else if(cargando == false) {
+      <div class="table-responsive mt-3">
+        <div class="table table-bordered">
+          <table class="table">
+            <thead>
+              <th>ID Usuario</th>
+              <th>Respuesta</th>
+              <th>Fecha Respuesta</th>
+              <th>ID Menu</th>
+            </thead>
+            <tbody>
+              @if(lstRespuestas.length == 0) {
+              <tr>
+                <td colspan="5">No existen datos para mostrar.</td>
+              </tr>
+              } @for (item of lstRespuestas; track $index) {
+              <tr>
+                <td>{{ item.user_id }}</td>
+                <td>{{ item.response_text }}</td>
+                <td>{{ item.fechaStr }}</td>
+                <td>{{ item.menu_id }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

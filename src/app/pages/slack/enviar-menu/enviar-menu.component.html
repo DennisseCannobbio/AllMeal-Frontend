@@ -1,0 +1,36 @@
+<div class="p-4 bg-white">
+  <div>
+    <h4 class="mb-3 mb-md-0">Envío Menús</h4>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="col-md-12">
+      @if(cargando == true) {
+      <div class="row d-flex justify-content-center mt-5">
+        <div class="spinner-grow text-primary m-1" role="status">
+          <span class="sr-only">Cargando...</span>
+        </div>
+      </div>
+      } @else if(cargando == false) {
+      <h6>
+        En esta sección puede enviar a los Usuarios registrados en su canal de
+        Slack, el/los menús disponibles para hoy,
+        <b>recuerde haber creado los menús antes.</b>
+      </h6>
+      <div class="d-flex justify-content-center mt-4">
+        <button
+          (click)="enviarMenu()"
+          class="btn btn-success"
+          type="button"
+          [disabled]="lstMenus.length == 0"
+        >
+          Enviar Menú
+          <i class="fa fa-envelope align-middle"></i>
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
