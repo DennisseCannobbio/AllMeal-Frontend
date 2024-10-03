@@ -1,27 +1,22 @@
-# Nazox
+# All Meal Fronted
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
+Este proyecto fue realizado con Angular 17, sin standalone. 
 
-## Development server
+Ejecute los siguientes pasos para ejecutar el proyecto en un entorno local:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Instalación
 
-## Code scaffolding
+1. Copiar el repositorio desde: https://github.com/DennisseCannobbio/AllMeal-Frontend.git
+2. Debe tener instalado node en su equipo local, versión 22.4.1.
+3. Si lo desea puede instalar NVM para manejar sus entornos de Node.
+4. Debe tener instalado Angular 18.1.0 en su equipo.
+5. Abra la carpeta donde descargó el proyecto y ejecute el siguiente comando:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+       npm install
+   
+7. Esto instalará los paquetes necesarios en su proyecto para poder levantarlo.
+8. Luego ejecute el comando, para levantar su proyecto.
+     
+       npm start
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+9. Ingrese a la url proporcionada. 
